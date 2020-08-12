@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>sharedWorker1</title>
+</head>
+<body>
+    <h3>sharedWorker1</h3>
+    <button id="btn2">send message to sharedWorker2</button>
+    <button id="btn3">send message to sharedWorker3</button>
+
+    <script>
+        const worker = new SharedWorker('./shared_worker.js')
+
+        worker.port.onmessage = function(e) {
+            console.log(e, 'sharedWorker1 onmessage')
+        }
+        // 初始化存储页面地址
+        worker.port.postMessage({
+            type: 'init',
+            options: {
+                url: window.location.href
+            }
+        })
+
+        // 向sharedWorker2发送消息
+        btn2.addEventListener('click', function() {
+            worker.port.postMessage({
+                url: 'http://localhost:8888/sharedWorker2.html',
+                msg: 'from sharedWorker1'
+            })
+        }, false)
+        // 向sharedWorker3发送消息
+        btn3.addEventListener('click', function() {
+            worker.port.postMessage({
+                url: 'http://localhost:8888/sharedWorker3.html',
+                msg: 'from sharedWorker1'
+            })
+        }, false)
+    </script>
+</body>
+</html>

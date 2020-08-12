@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>sharedWorker3</title>
+</head>
+<body>
+    <h3>sharedWorker3</h3>
+
+    <script>
+        const worker = new SharedWorker('./shared_worker.js')
+        worker.port.onmessage = function(e) {
+            console.log(e, 'sharedWorker3 onmessage')
+        }
+        // 初始化存储页面地址
+        worker.port.postMessage({
+            type: 'init',
+            options: {
+                url: window.location.href
+            }
+        })
+    </script>
+</body>
+</html>

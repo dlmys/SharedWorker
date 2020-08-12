@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>sharedWorker2</title>
+</head>
+<body>
+    <h3>sharedWorker2</h3>
+    <button id="btn">send message to others</button>
+
+    <script>
+        const worker = new SharedWorker('./shared_worker.js')
+
+        worker.port.onmessage = function(e) {
+            console.log(e, 'sharedWorker2 onmessage')
+        }
+        // 初始化存储页面地址
+        worker.port.postMessage({
+            type: 'init',
+            options: {
+                url: window.location.href
+            }
+        })
+
+        // 向所有其他页面发送消息
+        btn.addEventListener('click', function() {
+            worker.port.postMessage({
+                msg: 'from sharedWorker2'
+            })
+        }, false)
+    </script>
+</body>
+</html>
