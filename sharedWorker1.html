@@ -18,21 +18,21 @@
         worker.port.postMessage({
             type: 'init',
             options: {
-                url: window.location.href
+                pathname: window.location.pathname
             }
         })
 
         // 向sharedWorker2发送消息
         btn2.addEventListener('click', function() {
             worker.port.postMessage({
-                url: 'http://localhost:8888/sharedWorker2.html',
+                pathname: '/sharedWorker2.html',
                 msg: 'from sharedWorker1'
             })
         }, false)
         // 向sharedWorker3发送消息
         btn3.addEventListener('click', function() {
             worker.port.postMessage({
-                url: 'http://localhost:8888/sharedWorker3.html',
+                pathname: '/sharedWorker3.html',
                 msg: 'from sharedWorker1'
             })
         }, false)
