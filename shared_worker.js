@@ -32,8 +32,8 @@ function ensurePorts(port) {
 // 发布
 function dispatch(selfPort, data) {
     // 发布到指定页面
-    if (data && data.url) {
-        const portInfo = portInfoList.find(portInfo => portInfo.options && portInfo.options.url === data.url)
+    if (data && data.pathname) {
+        const portInfo = portInfoList.find(portInfo => portInfo.options && portInfo.options.pathname === data.pathname)
         if (portInfo) portInfo.port.postMessage(data)
     } else {
         // 发布到除自身外的其他所有页面
